@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Aug  4 11:47:08 2017
+This fils includes some useful functins for python.
 """
 
 #get the latest file name
