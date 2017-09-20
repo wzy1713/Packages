@@ -1,7 +1,7 @@
 
 LassoModel <- function(numberOfpart, #Number of part
                        folds,        #folds in CV
-					   var_gp,       #Variable group for group lasso model
+		       var_gp,       #Variable group for group lasso model
                        parallel,     #parallel or not
                        cores,        #parallel Cores
                        ..) {
