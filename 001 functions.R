@@ -91,3 +91,10 @@ out <- descriptiveAnalysis(variables = setdiff(names(data2), dropVar),
                            response = "response")
 
 
+#Calculate the KS value
+myks<-function(y,predict_y){  
+  library(ROCR)  
+  pred <- prediction(predictions=predict_y,labels=y)  
+  perf <- performance(pred,"tpr","fpr")  
+  tmp<-max(attr(perf,"y.values")[[1]]-attr(perf,"x.values")[[1]])  
+  return(tmp)
