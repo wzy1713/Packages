@@ -37,3 +37,16 @@
     %end;
   %end;
 %mend;
+
+
+%ForEach
+(/*                                    */ Obj=v
+, /*                                   */ ObjList=005 140 090
+,/*                                    */ SAScode=%nrstr(
+	%exexcel
+	(/* Source SATA Data Set       */ sasdata3.IDN_Profile&v
+	,/* "Output file path and name"*/ "&dir\3IDN_profile.xls"
+	,/* Replace or not (blank)     */ replace
+	,/* "Sheet name"               */ "&v"
+	);
+));
