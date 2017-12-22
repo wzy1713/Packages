@@ -17,7 +17,7 @@ data AUC;
  if _n_=1 then v1=abs(ExpectedSum - SumOfScores);
  v2=N*v2;
  if eof then do;
- d=v1/v2;
+ d= round(v1/v2, 0.001);
  Gini=d * 2;    AUC=d+0.5;   
  put AUC=  GINI=;
  keep AUC Gini;
