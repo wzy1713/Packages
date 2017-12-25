@@ -18,23 +18,24 @@ run;
 	data test;
 		set &target_tb.;
 	run;
-
+	
 	proc sql noprint;
 		select count(*) into :pos from test where response = 1;
 		select count(*) into :neg from test where response = 0;
 	quit;
 
+	/*åˆ é™¤å› å˜é‡*/
 	data test_num;
-		set test(drop = response);/*É¾³ıÒò±äÁ¿*/
+		set test(drop = response);
 	run;
 
-	/*½¨Á¢ÊıÖµĞÍÊı¾İ¼¯*/
+	/*å»ºç«‹æ•°å€¼å‹æ•°æ®é›†*/
 	data num;
 		set sashelp.vcolumn;
 		where memname = "TEST_NUM" and libname = "WORK" and type = "num";
 	run;
 
-	/*°ÑÊıÖµĞÍ±äÁ¿¶¨ÒåÎªºê±äÁ¿*/
+	/*æŠŠæ•°å€¼å‹å˜é‡å®šä¹‰ä¸ºå®å˜é‡*/
 	proc sql noprint;
 		select name into:numname separated by " " from num;
 	quit;
@@ -61,16 +62,16 @@ run;
 		ods graphics on;
 		proc hpsplit data= test_1 leafsize=10 maxbranch=2 Missing=SIMILARITY;
 			target response; 
-			input &numnamei./ level = int; *Ğè·ÖÏäµÄÁ¬Ğø±äÁ¿;
+			input &numnamei./ level = int; *éœ€åˆ†ç®±çš„è¿ç»­å˜é‡;
 			CRITERION GINI;
 			output out =tem1_&numnamei.
 			importance=temp2_&numnamei.
-			nodestats=temp3_&numnamei. /*temp3ÖĞ´æÁË·ÖÏäµÄ½á¹û;*/
+			nodestats=temp3_&numnamei. /*temp3ä¸­å­˜äº†åˆ†ç®±çš„ç»“æœ;*/
 			prunesubtree=temp4_&numnamei.;
 			rules file = "d:\rules.txt";
 		run;
 		
-      /*¼ÆËãIVÖµºÍWOE*/
+      /*è®¡ç®—IVå€¼å’ŒWOE*/
 		data test_gp;
 			set tem1_&numnamei. test_0;
 		run;
