@@ -218,7 +218,7 @@ def pr(y_pred, response):
 def lift_value(data, all_gp):
     import math
     import pandas as pd
-    d2 = data.sort(columns = ['Score'],axis = 0, ascending = False)
+    d2 = data.sort_values(by = ['Score'],axis = 0, ascending = False)
     cnt = math.ceil(len(d2)/all_gp)
     gpid = [math.floor(x / cnt) for x in range(len(d2))]
     d2['gpid'] = gpid
