@@ -1,0 +1,6 @@
+::STEP 0: CHANGE THE FOLDER
+G:  
+cd "G:\zywang\报表\存量客户分析报表\01_Codes\outlog"
+
+::STEP 1: Run SAS codes to generate the final reports
+"D:\Program Files\SASHome\SASFoundation\9.4\sas.exe" -CONFIG "D:\Program Files\SASHome\SASFoundation\9.4\nls\zh\sasv9.cfg" -sysin G:\zywang\报表\存量客户分析报表\01_Codes\cus_sum_monthly_report_code_zy_v4.sas 
