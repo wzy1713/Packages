@@ -214,6 +214,14 @@ def pr(y_pred, response):
     plt.title('P-R Curve')
     plt.legend(loc = 'lower left')
 
+#Precision and Recall Curve V.S. Thresholds
+def plot_precision_recall_vs_threshold(precisions, recalls, thresholds):
+    plt.plot(thresholds, precisions[:-1], "b--", label="Precision", linewidth=1)
+    plt.plot(thresholds, recalls[:-1], "g-", label="Recall", linewidth=1)
+    plt.xlabel("Threshold", fontsize=16)
+    plt.legend(loc="upper left", fontsize=10)
+    plt.ylim([0, 1])
+
 #Calculate Lift Chart      
 def lift_value(data, all_gp):
     import math
