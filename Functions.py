@@ -299,6 +299,31 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz.extractall(path=housing_path)
     housing_tgz.close()
 
+# 计算IV值
+def iv(data,      #raw data
+       q,         #number of group based on quantiles
+       response,  #target variables 
+       var):      #variable to be grouped
+     import pandas as pd
+     import numpy as np
+     d = data[[response, var]]
+     v = d[var]
+     cut_point = v.quantile([x/q for x in range(q+1)])
+     v_gp = {'age_gp': pd.cut(v, cut_point)}
+     t_gp = pd.DataFrame(v_gp)
+     t = pd.concat([data, t_gp], axis = 1)
+     functions=['count','sum']
+     t_sub = pd.DataFrame(t.groupby(['age_gp']).agg(functions)[response])
+     t_sub.columns = ['total_cnt','pos_cnt']
+     t_sub['neg_cnt'] = t_sub['total_cnt'] - t_sub['pos_cnt']
+     all_pos = sum(d[response])
+     all_neg = len(d) - all_pos
+     t_sub['p_pos'] = t_sub['pos_cnt']/all_pos
+     t_sub['p_neg'] = t_sub['neg_cnt']/all_neg
+     t_sub['WOE'] = np.log(t_sub['p_pos']/t_sub['p_neg'])
+     t_sub['IV'] = (t_sub['p_pos'] - t_sub['p_neg'])*t_sub['WOE']
+     t_sub = t_sub.drop(['total_cnt'], axis = 1)
+     return(t_sub)
 
 
 
