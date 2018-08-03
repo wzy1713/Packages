@@ -309,11 +309,11 @@ def IV(data,      #raw data
      d = data[[response, var]]
      v = d[var].astype(float)
      cut_point = v.quantile([x/q for x in range(q+1)])
-     v_gp = {'age_gp': pd.cut(v, cut_point)}
+     v_gp = {var + '_gp': pd.cut(v, cut_point)}
      t_gp = pd.DataFrame(v_gp)
      t = pd.concat([data, t_gp], axis = 1)
      functions=['count','sum']
-     t_sub = pd.DataFrame(t.groupby(['age_gp']).agg(functions)[response])
+     t_sub = pd.DataFrame(t.groupby([var + '_gp']).agg(functions)[response])
      t_sub.columns = ['total_cnt','pos_cnt']
      t_sub['neg_cnt'] = t_sub['total_cnt'] - t_sub['pos_cnt']
      all_pos = sum(d[response])
