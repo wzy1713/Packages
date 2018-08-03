@@ -300,14 +300,14 @@ def fetch_housing_data(housing_url=HOUSING_URL, housing_path=HOUSING_PATH):
     housing_tgz.close()
 
 # 计算IV值
-def iv(data,      #raw data
+def IV(data,      #raw data
        q,         #number of group based on quantiles
        response,  #target variables 
        var):      #variable to be grouped
      import pandas as pd
      import numpy as np
      d = data[[response, var]]
-     v = d[var]
+     v = d[var].astype(float)
      cut_point = v.quantile([x/q for x in range(q+1)])
      v_gp = {'age_gp': pd.cut(v, cut_point)}
      t_gp = pd.DataFrame(v_gp)
